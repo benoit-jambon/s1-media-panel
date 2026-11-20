@@ -1,0 +1,2 @@
+# Optional site-specific constraint: add KERNEL=="BUS-PORT" to this match.
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="04d9", ATTR{idProduct}=="fd01", ATTR{bcdDevice}=="0110", OWNER="root", GROUP="root", MODE="0600", TAG+="uaccess"

@@ -1,0 +1,42 @@
+[usb]
+vid = 0x04d9
+pid = 0xfd01
+revision = 0x0110
+bus = 0                         # 0 selects any bus
+ports = []                      # Optional USB port chain, e.g. [2, 3]
+orientation = "landscape"       # landscape, landscape-180, portrait, portrait-180
+pace_ms = 0                     # Experimental setting, in milliseconds
+timeout_ms = 1000
+heartbeat = 1.0
+retry = 5.0
+partial = false                 # Experimental, landscape only
+
+[display]
+font = "DejaVuSans.ttf"
+background = "#101825"
+foreground = "#eef4ff"
+accent = "#58d6c5"
+idle_brightness = 1.0
+playing_brightness = 0.85
+paused_brightness = 0.9
+metrics = ["time", "date", "temperature", "cpu", "gpu", "ram", "disk", "disk_temperature", "network", "uptime", "server"]
+details = ["resolution", "video_codec", "audio_codec", "decoder", "range", "audio_language", "subtitle_language", "dropped"]
+
+[service]
+mode = "auto"                   # auto or idle
+idle = 5.0
+playing = 1.0
+paused = 2.0
+poll = 0.5
+
+[media]
+mpris_name = "org.mpris.MediaPlayer2.com.github.iwalton3.jellyfin-mpv-shim"
+mpv_socket = ""                 # Optional: "${XDG_RUNTIME_DIR}/s1-player/mpv.sock"
+show_titles = true
+
+[monitor]
+disk_path = "/"
+storage_sensor = ""             # Optional: one specific psutil sensor group
+network_interface = ""          # Optional: interface name chosen by the operator
+server_url = ""                 # Optional: https://media.example.org/System/Info/Public
+server_interval = 60.0

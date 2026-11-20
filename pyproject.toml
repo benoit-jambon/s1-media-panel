@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "s1-media-panel"
+version = "0.1.0a0"
+description = "An open-source LCD dashboard for ACEMAGIC S1 Linux media centers"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "GPL-3.0-only"
+license-files = ["LICENSE", "ATTRIBUTIONS.md"]
+dependencies = ["Pillow>=10", "psutil>=5.9", "pyusb>=1.2", "dbus-python>=1.3"]
+
+[project.scripts]
+s1-media-panel = "s1_media_panel.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

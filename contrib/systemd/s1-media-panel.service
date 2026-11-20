@@ -1,0 +1,11 @@
+[Unit]
+Description=S1 Media Panel LCD dashboard
+
+[Service]
+ExecStart=%h/.local/share/s1-media-panel/venv/bin/s1-media-panel
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target
