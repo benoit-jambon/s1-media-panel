@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Manual LCD pixel brightness from 0 to 100% in 5-point steps, shared by idle, playing and paused views. Legacy per-mode configuration keys remain readable.
+- Atomic user preference, brightness CLI, optional PyQt6 slider panel and two-second primary-screen overlay. Includes examples of user-defined LXQt shortcuts.
+- Hardware-free tests for RGB output, concurrent updates, service transitions, panel controls and overlay lifetime.
+
 ## 0.1.0-alpha
 
 - System dashboard and MPRIS-driven playback and pause views with optional local MPV details.

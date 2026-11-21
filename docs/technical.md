@@ -8,6 +8,12 @@ The USB transport verifies the HID-class interface 01 and interrupt OUT endpoint
 
 The next heartbeat deadline advances only after successful sending, using monotonic time. The loop checks the deadline before and after drawing, limits its sleep to the next heartbeat, and never inserts other commands into a full redraw. Polling, collection, transfer time and pacing can delay the heartbeat. A 50 ms gap adds about 1.35 s to a sustained 27-transfer redraw. The 50 ms and 2,000 ms settings are experimental. Default values retain the original 1,000 ms timeout and omit inter-write pacing. Identical RGB frames are skipped. Optional landscape `A2` updates use a bounding rectangle up to 254 × 170 and 2,048 pixels.
 
+## Manual brightness
+
+The renderer draws the configured theme at full intensity. The service retains the RGB image and applies the user's level before passing it to the existing duplicate-frame detection, rectangular updates and RGB565 conversion. At 0% identical black frames are skipped and heartbeat scheduling continues. A brightness-only change can reuse the cached RGB image between scheduled renders. Synthetic previews always use full intensity. Old per-mode factors are accepted when parsing existing configuration files.
+
+The detached overlay and command use two locks in the private session directory under `XDG_RUNTIME_DIR`. One serializes requests with expiry and the other stays with the single window process. A new request, including a repeated level, resets the two-second countdown. Run the test suite with the optional `gui` extra installed to include the Qt offscreen tests. See the [illustrated user guide](luminosite.md).
+
 ## Media and monitoring
 
 MPRIS supplies state, title, duration and position. The panel looks up the current player owner without activating an inactive player. The Shim episode title convention provides series, season and episode when present. Configure a separate private directory inside `XDG_RUNTIME_DIR` with mode 0700 and a Unix socket owned by the same user with mode 0600. Point MPV's `input-ipc-server` at that socket and set `media.mpv_socket` in the panel's TOML. The player launch environment must make the directory accessible to MPV (including any sandbox). The panel only sends JSON `get_property` requests. Keep the socket private because MPV itself accepts control commands. Disable title display with `show_titles = false`.

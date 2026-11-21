@@ -16,9 +16,8 @@ font = "DejaVuSans.ttf"
 background = "#101825"
 foreground = "#eef4ff"
 accent = "#58d6c5"
-idle_brightness = 1.0
-playing_brightness = 0.85
-paused_brightness = 0.9
+# Luminosité commune aux trois vues, par exemple : s1-media-panel brightness set 65
+# Valeur initiale 100 %. La préférence utilisateur est enregistrée séparément du TOML.
 metrics = ["time", "date", "temperature", "cpu", "gpu", "ram", "disk", "disk_temperature", "network", "uptime", "server"]
 details = ["resolution", "video_codec", "audio_codec", "decoder", "range", "audio_language", "subtitle_language", "dropped"]
 

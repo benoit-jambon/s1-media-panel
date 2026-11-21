@@ -4,6 +4,7 @@ from time import monotonic, sleep
 
 from PIL import Image, ImageChops
 
+from .brightness import FULL, dim, read_level, state_path
 from .protocol import LCDProtocol
 from .render import render
 
@@ -66,6 +67,9 @@ class Service:
         self.display = self.mode = None
         self.retry_at = self.render_at = 0
         self.incidents = set()
+        self.preference = state_path()
+        self.level = FULL
+        self.source_image = None
 
     def warn(self, key, error):
         if key not in self.incidents:
@@ -110,18 +114,29 @@ class Service:
             self.warn("Media source failure", error)
             media = None
         mode = media["mode"] if media else "idle"
-        if mode == self.mode and self.clock() < self.render_at:
-            return
-        self.mode = mode
         try:
-            data = media if media else self.monitor.read()
-            image = render(self.display.size, self.colors, mode, data)
-            self.incidents.discard("LCD render or monitoring failure")
-        except (OSError, ValueError, TypeError) as error:
-            self.warn("LCD render or monitoring failure", error)
-        else:
-            self.display.paint(image)
-        self.render_at = self.clock() + self.options[mode]
+            level = read_level(self.preference)
+            self.incidents.discard("LCD brightness preference invalid")
+        except (OSError, ValueError) as error:
+            self.warn("LCD brightness preference invalid", error)
+            level = self.level
+        redraw = mode != self.mode or self.clock() >= self.render_at
+        if redraw:
+            self.mode = mode
+            try:
+                data = media if media else self.monitor.read()
+                self.source_image = render(self.display.size, self.colors, mode, data)
+                self.incidents.discard("LCD render or monitoring failure")
+            except (OSError, ValueError, TypeError) as error:
+                self.warn("LCD render or monitoring failure", error)
+        if redraw or level != self.level:
+            if self.source_image is not None:
+                self.display.paint(dim(self.source_image, level))
+            elif level == 0:
+                self.display.paint(Image.new("RGB", self.display.size))
+        self.level = level
+        if redraw:
+            self.render_at = self.clock() + self.options[mode]
 
     def close(self):
         if self.display is not None:

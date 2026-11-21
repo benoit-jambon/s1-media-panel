@@ -42,11 +42,8 @@ def clock(seconds):
 
 def render(size, config, mode, data):
     width, height = size
-    brightness = config[f"{mode}_brightness"]
-    background, foreground, accent = [
-        tuple(round(channel * brightness) for channel in ImageColor.getrgb(config[key]))
-        for key in ("background", "foreground", "accent")
-    ]
+    background, foreground, accent = (ImageColor.getrgb(config[key])
+                                      for key in ("background", "foreground", "accent"))
     image = Image.new("RGB", size, background)
     draw = ImageDraw.Draw(image)
     small = font(config["font"], 12)

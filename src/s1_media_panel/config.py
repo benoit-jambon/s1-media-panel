@@ -55,6 +55,7 @@ def load(path=None):
                   service["playing"], service["paused"], result["monitor"]["server_interval"]):
         if not 0.1 <= value <= 86400:
             raise ValueError("Intervals must be between 0.1 and 86400 seconds")
+    # Compatibilité des anciens TOML. Ces coefficients ne pilotent plus le rendu.
     for key in ("idle_brightness", "playing_brightness", "paused_brightness"):
         if not 0 <= display[key] <= 1:
             raise ValueError("Brightness must be between zero and one")

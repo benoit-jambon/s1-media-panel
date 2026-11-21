@@ -12,7 +12,7 @@ The panel switches between system metrics and playback using MPRIS. An optional 
 
 ## Hardware and prerequisites
 
-- **Automated checks:** 25 tests cover framing, USB errors and recovery with simulated devices, heartbeat scheduling, configuration, rendering and media state transitions.
+- **Automated checks:** The suite includes 15 brightness tests and the original 25 regression tests covering framing, USB errors and recovery with simulated devices, heartbeat scheduling, configuration, rendering and media state transitions.
 - **Python installation:** wheel and source distribution were installed with dependency resolution on Lubuntu 26.04 and Python 3.14. All 25 tests passed in each environment, and uninstallation succeeded.
 - **Historical hardware observations:** an earlier private integration displayed the idle dashboard and the playback view on Intel N95, Lubuntu 26.04, Holtek USB `04d9:fd01` revision `0110`, interface `01`, interrupt OUT endpoint `0x02`, 320 × 170 RGB565. The exact retail chassis was not verified.
 - **Public alpha scope:** no physical LCD or endurance test was performed with this release. The historical observations help identify a candidate controller revision for community testing.
@@ -59,7 +59,27 @@ systemctl --user enable --now s1-media-panel.service
 
 ## Configure
 
-Edit `config.toml` in the configuration directory or pass `--config PATH`. The example lists the settings and defaults. Configure the USB selector, orientation, refresh and retry intervals, theme and software brightness, monitoring fields, and media source. MPV IPC and the HTTPS probe are disabled until configured. See [technical documentation](docs/technical.md) for local socket setup, metrics and diagnostics.
+Edit `config.toml` in the configuration directory or pass `--config PATH`. The example lists the settings and defaults. Configure the USB selector, orientation, refresh and retry intervals, theme colors, monitoring fields, and media source. MPV IPC and the HTTPS probe are disabled until configured. See [technical documentation](docs/technical.md) for local socket setup, metrics and diagnostics.
+
+## Manual LCD brightness
+
+From the source checkout, install the optional graphical controls into the same virtual environment with `"$base/venv/bin/python" -m pip install '.[gui]'`. The service and text commands work without PyQt6. With the environment's `bin` directory on PATH:
+
+```sh
+s1-media-panel brightness status
+s1-media-panel brightness set 0
+s1-media-panel brightness up
+s1-media-panel brightness down
+s1-media-panel brightness set 100
+s1-media-panel brightness panel
+s1-media-panel brightness --osd set 65
+```
+
+The 21 levels apply to all views. At 0% the pixels are black and the service continues its heartbeat. At 100% the theme is drawn at full intensity. Intermediate levels scale RGB pixels before RGB565 encoding. **Software brightness does not change the hardware backlight.** Closing the slider panel leaves the LCD service running.
+
+The level is saved atomically under `$XDG_STATE_HOME/s1-media-panel/brightness` (default `~/.local/state/s1-media-panel/brightness`). It defaults to 100%. Older TOML files still load. The three per-mode brightness keys are ignored. Use `set` to select a new level or repair a malformed preference.
+
+`--osd` requests a single overlay on the primary screen and renews its two-second timeout. The reference integration was validated on the LXQt desktop. This source implementation was tested offscreen. Stacking over fullscreen Jellyfin remains unverified. The panel and overlay use no USB access. See the [illustrated controls and optional LXQt shortcuts (French)](docs/luminosite.md).
 
 ## Uninstall
 

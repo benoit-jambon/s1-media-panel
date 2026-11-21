@@ -107,6 +107,8 @@ class TransportTests(unittest.TestCase):
 
 class AssemblyTests(unittest.TestCase):
     def setUp(self):
+        directory = self.enterContext(tempfile.TemporaryDirectory())
+        self.enterContext(patch.dict("os.environ", XDG_STATE_HOME=directory))
         self.now = 10
         self.clock = lambda: self.now
         self.config = load()

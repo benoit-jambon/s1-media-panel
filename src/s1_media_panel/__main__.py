@@ -6,6 +6,7 @@ from pathlib import Path
 from threading import Event
 
 from . import __version__
+from . import brightness
 from .config import load
 from .media import Mpris
 from .monitor import Monitor
@@ -35,7 +36,11 @@ def main():
     parser.add_argument("--config", type=Path)
     parser.add_argument("--preview", type=Path, metavar="DIRECTORY")
     parser.add_argument("--check-config", action="store_true")
+    commands = parser.add_subparsers(dest="command")
+    brightness.add_commands(commands.add_parser("brightness", help="Luminosité logicielle du LCD"))
     args = parser.parse_args()
+    if args.command == "brightness":
+        return brightness.run(args)
     default = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "s1-media-panel/config.toml"
     try:
         if args.config is not None:
