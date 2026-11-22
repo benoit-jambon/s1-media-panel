@@ -2,7 +2,7 @@
 
 An open-source LCD dashboard for ACEMAGIC S1 Linux media centers, featuring system monitoring and dynamic multimedia playback information.
 
-Experimental release **0.1.0-alpha**. [Lire en français](README.fr.md).
+Experimental release **0.2.0-alpha**. [Lire en français](README.fr.md).
 
 | Idle | Playing | Paused |
 | --- | --- | --- |
@@ -13,7 +13,7 @@ The panel switches between system metrics and playback using MPRIS. An optional 
 ## Hardware and prerequisites
 
 - **Automated checks:** The suite includes 15 brightness tests and the original 25 regression tests covering framing, USB errors and recovery with simulated devices, heartbeat scheduling, configuration, rendering and media state transitions.
-- **Python installation:** wheel and source distribution were installed with dependency resolution on Lubuntu 26.04 and Python 3.14. All 25 tests passed in each environment, and uninstallation succeeded.
+- **Python installation:** the 0.1.0-alpha wheel and source distribution were installed with dependency resolution on Lubuntu 26.04 and Python 3.14. All 25 tests passed in each environment, and uninstallation succeeded.
 - **Historical hardware observations:** an earlier private integration displayed the idle dashboard and the playback view on Intel N95, Lubuntu 26.04, Holtek USB `04d9:fd01` revision `0110`, interface `01`, interrupt OUT endpoint `0x02`, 320 × 170 RGB565. The exact retail chassis was not verified.
 - **Public alpha scope:** no physical LCD or endurance test was performed with this release. The historical observations help identify a candidate controller revision for community testing.
 
@@ -24,7 +24,7 @@ sudo apt install python3-venv python3-dev build-essential pkg-config \
   libdbus-1-dev libglib2.0-dev libusb-1.0-0 fonts-dejavu-core
 ```
 
-The compiler, Python headers, `pkg-config`, D-Bus and GLib development packages are required if pip builds `dbus-python` from source. Use headers for the interpreter that creates the virtual environment. Package names can vary by distribution. The wheel and source package were installed and tested with Python 3.14, including a build of dbus-python 1.5.1.
+The compiler, Python headers, `pkg-config`, D-Bus and GLib development packages are required if pip builds `dbus-python` from source. Use headers for the interpreter that creates the virtual environment. Package names can vary by distribution. The 0.1.0-alpha wheel and source package were installed and tested with Python 3.14, including a build of dbus-python 1.5.1.
 
 ## Install and run
 

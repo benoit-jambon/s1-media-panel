@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.0-alpha
 
 - Manual LCD pixel brightness from 0 to 100% in 5-point steps, shared by idle, playing and paused views. Legacy per-mode configuration keys remain readable.
 - Atomic user preference, brightness CLI, optional PyQt6 slider panel and two-second primary-screen overlay. Includes examples of user-defined LXQt shortcuts.

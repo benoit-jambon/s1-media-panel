@@ -1,6 +1,6 @@
 # S1 Media Panel
 
-Tableau de bord libre pour le LCD frontal des mini-PC compatibles ACEMAGIC S1 sous Linux. Version expérimentale **0.1.0-alpha**. [English](README.md).
+Tableau de bord libre pour le LCD frontal des mini-PC compatibles ACEMAGIC S1 sous Linux. Version expérimentale **0.2.0-alpha**. [English](README.md).
 
 | Repos | Lecture | Pause |
 | --- | --- | --- |
@@ -11,7 +11,7 @@ Les vues basculent automatiquement via MPRIS. Le socket privé MPV, facultatif, 
 ## Matériel et prérequis
 
 - **Tests automatisés.** La suite comprend 15 tests de luminosité et les 25 tests de régression de l’alpha couvrant la formation des trames, les erreurs USB et la reprise simulées, la cadence du heartbeat, la configuration, le rendu et les transitions multimédias.
-- **Installation Python.** Le wheel et le paquet source ont été installés avec résolution des dépendances sous Lubuntu 26.04 et Python 3.14. Les 25 tests et la désinstallation ont réussi dans chaque environnement.
+- **Installation Python.** Le wheel et le paquet source de la version 0.1.0-alpha ont été installés avec résolution des dépendances sous Lubuntu 26.04 et Python 3.14. Les 25 tests et la désinstallation ont réussi dans chaque environnement.
 - **Observations matérielles antérieures.** L’intégration privée a affiché le tableau de bord au repos et la vue en lecture sur Intel N95, Lubuntu 26.04, Holtek USB `04d9:fd01` révision `0110`, interface `01`, endpoint OUT interrupt `0x02`, 320 × 170 RGB565. La référence commerciale précise du châssis reste inconnue.
 - **Périmètre de l’alpha publique.** Cette version n’a fait l’objet d’aucun essai sur LCD physique ni d’aucun essai d’endurance. Les observations antérieures aident à choisir une révision de contrôleur pour les essais de la communauté.
 
@@ -22,7 +22,7 @@ sudo apt install python3-venv python3-dev build-essential pkg-config \
   libdbus-1-dev libglib2.0-dev libusb-1.0-0 fonts-dejavu-core
 ```
 
-Le compilateur, les en-têtes Python, `pkg-config` et les paquets de développement D-Bus et GLib sont nécessaires si pip compile `dbus-python`. Choisir les en-têtes de l’interpréteur utilisé pour créer l’environnement virtuel. Le wheel et le paquet source ont été installés et testés sous Python 3.14, avec compilation de dbus-python 1.5.1.
+Le compilateur, les en-têtes Python, `pkg-config` et les paquets de développement D-Bus et GLib sont nécessaires si pip compile `dbus-python`. Choisir les en-têtes de l’interpréteur utilisé pour créer l’environnement virtuel. Le wheel et le paquet source de la version 0.1.0-alpha ont été installés et testés sous Python 3.14, avec compilation de dbus-python 1.5.1.
 
 ## Installation, configuration et démarrage
 
